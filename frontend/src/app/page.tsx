@@ -1,3 +1,4 @@
+import SummaryCard from "@/components/SummaryCard";
 import { spendingCategories, transactions } from "@/data/sampleTransactions";
 
 export default function Home() {
@@ -16,26 +17,11 @@ export default function Home() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-4">
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-            <p className="text-sm text-slate-400">Total Balance</p>
-            <h2 className="mt-2 text-2xl font-semibold">$2,840.50</h2>
-          </div>
-
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-            <p className="text-sm text-slate-400">Monthly Income</p>
-            <h2 className="mt-2 text-2xl font-semibold">$1,680.00</h2>
-          </div>
-
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-            <p className="text-sm text-slate-400">Monthly Expenses</p>
-            <h2 className="mt-2 text-2xl font-semibold">$965.25</h2>
-          </div>
-
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-            <p className="text-sm text-slate-400">Savings Rate</p>
-            <h2 className="mt-2 text-2xl font-semibold">42%</h2>
-          </div>
-        </div>
+  <SummaryCard title="Total Balance" value="$2,840.50" />
+  <SummaryCard title="Monthly Income" value="$1,680.00" />
+  <SummaryCard title="Monthly Expenses" value="$965.25" />
+  <SummaryCard title="Savings Rate" value="42%" />
+</div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
           <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 lg:col-span-2">
