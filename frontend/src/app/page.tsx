@@ -1,44 +1,4 @@
-const transactions = [
-  {
-    id: 1,
-    date: "May 1",
-    type: "Income",
-    category: "Work",
-    description: "Part-time job",
-    amount: 420,
-  },
-  {
-    id: 2,
-    date: "May 2",
-    type: "Expense",
-    category: "Food",
-    description: "Lunch",
-    amount: -18.75,
-  },
-  {
-    id: 3,
-    date: "May 3",
-    type: "Expense",
-    category: "Transport",
-    description: "Bus fare",
-    amount: -3.5,
-  },
-  {
-    id: 4,
-    date: "May 4",
-    type: "Expense",
-    category: "Groceries",
-    description: "Weekly groceries",
-    amount: -72.4,
-  },
-];
-
-const spendingCategories = [
-  { name: "Food", amount: 260 },
-  { name: "Transport", amount: 85 },
-  { name: "Groceries", amount: 310 },
-  { name: "Subscriptions", amount: 45 },
-];
+import { spendingCategories, transactions } from "@/data/sampleTransactions";
 
 export default function Home() {
   return (
@@ -127,7 +87,9 @@ export default function Home() {
                 >
                   <span className="text-slate-400">{transaction.date}</span>
                   <span>{transaction.description}</span>
-                  <span className="text-slate-400">{transaction.category}</span>
+                  <span className="text-slate-400">
+                    {transaction.category}
+                  </span>
                   <span
                     className={
                       transaction.amount > 0
