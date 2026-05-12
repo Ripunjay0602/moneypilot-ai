@@ -1,0 +1,168 @@
+const transactions = [
+  {
+    id: 1,
+    date: "May 1",
+    type: "Income",
+    category: "Work",
+    description: "Part-time job",
+    amount: 420,
+  },
+  {
+    id: 2,
+    date: "May 2",
+    type: "Expense",
+    category: "Food",
+    description: "Lunch",
+    amount: -18.75,
+  },
+  {
+    id: 3,
+    date: "May 3",
+    type: "Expense",
+    category: "Transport",
+    description: "Bus fare",
+    amount: -3.5,
+  },
+  {
+    id: 4,
+    date: "May 4",
+    type: "Expense",
+    category: "Groceries",
+    description: "Weekly groceries",
+    amount: -72.4,
+  },
+];
+
+const spendingCategories = [
+  { name: "Food", amount: 260 },
+  { name: "Transport", amount: 85 },
+  { name: "Groceries", amount: 310 },
+  { name: "Subscriptions", amount: 45 },
+];
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-slate-950 text-white">
+      <section className="mx-auto max-w-7xl px-6 py-8">
+        <div className="mb-8">
+          <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">
+            Personal Finance Dashboard
+          </p>
+          <h1 className="mt-3 text-4xl font-bold">MoneyPilot AI</h1>
+          <p className="mt-3 max-w-2xl text-slate-400">
+            Track spending, understand cash flow, and get simple AI-powered
+            financial insights.
+          </p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-4">
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+            <p className="text-sm text-slate-400">Total Balance</p>
+            <h2 className="mt-2 text-2xl font-semibold">$2,840.50</h2>
+          </div>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+            <p className="text-sm text-slate-400">Monthly Income</p>
+            <h2 className="mt-2 text-2xl font-semibold">$1,680.00</h2>
+          </div>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+            <p className="text-sm text-slate-400">Monthly Expenses</p>
+            <h2 className="mt-2 text-2xl font-semibold">$965.25</h2>
+          </div>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+            <p className="text-sm text-slate-400">Savings Rate</p>
+            <h2 className="mt-2 text-2xl font-semibold">42%</h2>
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-6 lg:grid-cols-3">
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 lg:col-span-2">
+            <h2 className="text-xl font-semibold">Spending by Category</h2>
+            <p className="mt-1 text-sm text-slate-400">
+              Sample monthly spending breakdown
+            </p>
+
+            <div className="mt-6 space-y-4">
+              {spendingCategories.map((category) => (
+                <div key={category.name}>
+                  <div className="mb-2 flex justify-between text-sm">
+                    <span>{category.name}</span>
+                    <span>${category.amount}</span>
+                  </div>
+                  <div className="h-3 rounded-full bg-slate-800">
+                    <div
+                      className="h-3 rounded-full bg-cyan-400"
+                      style={{ width: `${category.amount / 4}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-cyan-900 bg-cyan-950/40 p-6">
+            <h2 className="text-xl font-semibold">AI Insight</h2>
+            <p className="mt-4 text-sm leading-6 text-slate-300">
+              You spent the most on groceries this month. If you reduce grocery
+              spending by $25 per week, you could save about $100 more each
+              month.
+            </p>
+            <button className="mt-6 rounded-xl bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950">
+              Generate New Insight
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-6 lg:grid-cols-3">
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 lg:col-span-2">
+            <h2 className="text-xl font-semibold">Recent Transactions</h2>
+
+            <div className="mt-5 overflow-hidden rounded-xl border border-slate-800">
+              {transactions.map((transaction) => (
+                <div
+                  key={transaction.id}
+                  className="grid grid-cols-4 border-b border-slate-800 px-4 py-3 text-sm last:border-b-0"
+                >
+                  <span className="text-slate-400">{transaction.date}</span>
+                  <span>{transaction.description}</span>
+                  <span className="text-slate-400">{transaction.category}</span>
+                  <span
+                    className={
+                      transaction.amount > 0
+                        ? "text-right text-green-400"
+                        : "text-right text-red-400"
+                    }
+                  >
+                    {transaction.amount > 0 ? "+" : "-"}$
+                    {Math.abs(transaction.amount).toFixed(2)}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+            <h2 className="text-xl font-semibold">Savings Goal</h2>
+            <p className="mt-1 text-sm text-slate-400">Laptop fund</p>
+
+            <div className="mt-6">
+              <div className="mb-2 flex justify-between text-sm">
+                <span>$650 saved</span>
+                <span>$1,000 goal</span>
+              </div>
+              <div className="h-4 rounded-full bg-slate-800">
+                <div className="h-4 w-[65%] rounded-full bg-cyan-400" />
+              </div>
+            </div>
+
+            <p className="mt-4 text-sm text-slate-400">
+              You are 65% of the way toward your goal.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
