@@ -1,3 +1,4 @@
+import AiInsightCard from "@/components/AiInsightCard";
 import SummaryCard from "@/components/SummaryCard";
 import { spendingCategories, transactions } from "@/data/sampleTransactions";
 
@@ -17,11 +18,11 @@ export default function Home() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-4">
-  <SummaryCard title="Total Balance" value="$2,840.50" />
-  <SummaryCard title="Monthly Income" value="$1,680.00" />
-  <SummaryCard title="Monthly Expenses" value="$965.25" />
-  <SummaryCard title="Savings Rate" value="42%" />
-</div>
+          <SummaryCard title="Total Balance" value="$2,840.50" />
+          <SummaryCard title="Monthly Income" value="$1,680.00" />
+          <SummaryCard title="Monthly Expenses" value="$965.25" />
+          <SummaryCard title="Savings Rate" value="42%" />
+        </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
           <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 lg:col-span-2">
@@ -48,17 +49,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-cyan-900 bg-cyan-950/40 p-6">
-            <h2 className="text-xl font-semibold">AI Insight</h2>
-            <p className="mt-4 text-sm leading-6 text-slate-300">
-              You spent the most on groceries this month. If you reduce grocery
-              spending by $25 per week, you could save about $100 more each
-              month.
-            </p>
-            <button className="mt-6 rounded-xl bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950">
-              Generate New Insight
-            </button>
-          </div>
+          <AiInsightCard />
         </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
