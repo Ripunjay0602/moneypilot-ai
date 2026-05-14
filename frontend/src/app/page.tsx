@@ -145,6 +145,12 @@ export default function Home() {
     setTransactions([transaction, ...transactions]);
   }
 
+  function handleDeleteTransaction(id: number) {
+    setTransactions(
+      transactions.filter((transaction) => transaction.id !== id)
+    );
+  }
+
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <section className="mx-auto max-w-7xl px-6 py-8">
@@ -171,7 +177,11 @@ export default function Home() {
 
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
           <AddTransactionForm onAddTransaction={handleAddTransaction} />
-          <RecentTransactions transactions={transactions} />
+
+          <RecentTransactions
+            transactions={transactions}
+            onDeleteTransaction={handleDeleteTransaction}
+          />
         </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
