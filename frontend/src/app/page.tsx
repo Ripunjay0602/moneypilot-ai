@@ -59,26 +59,31 @@ export default function Home() {
   ];
 
   const spendingCategories = Object.values(
-    transactions
-      .filter((transaction) => transaction.amount < 0)
-      .reduce<Record<string, { name: string; amount: number }>>(
-        (categories, transaction) => {
-          if (!categories[transaction.category]) {
-            categories[transaction.category] = {
-              name: transaction.category,
-              amount: 0,
-            };
-          }
+  transactions
+    .filter((transaction) => transaction.amount < 0)
+    .reduce<Record<string, { name: string; amount: number }>>(
+      (categories, transaction) => {
+        if (!categories[transaction.category]) {
+          categories[transaction.category] = {
+            name: transaction.category,
+            amount: 0,
+          };
+        }
 
-          categories[transaction.category].amount += Math.abs(
-            transaction.amount
-          );
+        categories[transaction.category].amount += Math.abs(
+          transaction.amount
+        );
 
-          return categories;
-        },
-        {}
-      )
-  ).sort((a, b) => b.amount - a.amount);
+        return categories;
+      },
+      {}
+    )
+).sort((a, b) => b.amount - a.amount);
+
+const topSpendingCategory = spendingCategories[0] ?? {
+  name: "No expenses yet",
+  amount: 0,
+};
 
   function handleAddTransaction(newTransaction: NewTransaction) {
     const formattedAmount =
@@ -118,7 +123,10 @@ export default function Home() {
 
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
           <SpendingCategoryCard categories={spendingCategories} />
-          <AiInsightCard />
+          <AiInsightCard
+  topCategoryName={topSpendingCategory.name}
+  topCategoryAmount={topSpendingCategory.amount}
+/>
         </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
