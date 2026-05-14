@@ -8,10 +8,7 @@ import RecentTransactions from "@/components/RecentTransactions";
 import SavingsGoalCard from "@/components/SavingsGoalCard";
 import SpendingCategoryCard from "@/components/SpendingCategoryCard";
 import SummaryCard from "@/components/SummaryCard";
-import {
-  spendingCategories,
-  transactions as sampleTransactions,
-} from "@/data/sampleTransactions";
+import { transactions as sampleTransactions } from "@/data/sampleTransactions";
 
 type NewTransaction = {
   type: string;
@@ -60,6 +57,28 @@ export default function Home() {
       value: `${savingsRate}%`,
     },
   ];
+
+  const spendingCategories = Object.values(
+    transactions
+      .filter((transaction) => transaction.amount < 0)
+      .reduce<Record<string, { name: string; amount: number }>>(
+        (categories, transaction) => {
+          if (!categories[transaction.category]) {
+            categories[transaction.category] = {
+              name: transaction.category,
+              amount: 0,
+            };
+          }
+
+          categories[transaction.category].amount += Math.abs(
+            transaction.amount
+          );
+
+          return categories;
+        },
+        {}
+      )
+  ).sort((a, b) => b.amount - a.amount);
 
   function handleAddTransaction(newTransaction: NewTransaction) {
     const formattedAmount =
