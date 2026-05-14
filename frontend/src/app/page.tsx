@@ -1,6 +1,6 @@
 import AiInsightCard from "@/components/AiInsightCard";
 import RecentTransactions from "@/components/RecentTransactions";
-import SummaryCard from "@/components/SummaryCard";
+import SavingsGoalCard from "@/components/SavingsGoalCard";import SummaryCard from "@/components/SummaryCard";
 import { spendingCategories, transactions } from "@/data/sampleTransactions";
 
 export default function Home() {
@@ -57,26 +57,8 @@ export default function Home() {
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
           <RecentTransactions transactions={transactions} />
 
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-            <h2 className="text-xl font-semibold">Savings Goal</h2>
-            <p className="mt-1 text-sm text-slate-400">Laptop fund</p>
-
-            <div className="mt-6">
-              <div className="mb-2 flex justify-between text-sm">
-                <span>$650 saved</span>
-                <span>$1,000 goal</span>
-              </div>
-
-              <div className="h-4 rounded-full bg-slate-800">
-                <div className="h-4 w-[65%] rounded-full bg-cyan-400" />
-              </div>
-            </div>
-
-            <p className="mt-4 text-sm text-slate-400">
-              You are 65% of the way toward your goal.
-            </p>
+          <SavingsGoalCard goalName="Laptop fund" savedAmount={650} targetAmount={1000} />
           </div>
-        </div>
       </section>
     </main>
   );
