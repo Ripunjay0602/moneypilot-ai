@@ -1,4 +1,5 @@
 import AiInsightCard from "@/components/AiInsightCard";
+import RecentTransactions from "@/components/RecentTransactions";
 import SummaryCard from "@/components/SummaryCard";
 import { spendingCategories, transactions } from "@/data/sampleTransactions";
 
@@ -38,6 +39,7 @@ export default function Home() {
                     <span>{category.name}</span>
                     <span>${category.amount}</span>
                   </div>
+
                   <div className="h-3 rounded-full bg-slate-800">
                     <div
                       className="h-3 rounded-full bg-cyan-400"
@@ -53,34 +55,7 @@ export default function Home() {
         </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 lg:col-span-2">
-            <h2 className="text-xl font-semibold">Recent Transactions</h2>
-
-            <div className="mt-5 overflow-hidden rounded-xl border border-slate-800">
-              {transactions.map((transaction) => (
-                <div
-                  key={transaction.id}
-                  className="grid grid-cols-4 border-b border-slate-800 px-4 py-3 text-sm last:border-b-0"
-                >
-                  <span className="text-slate-400">{transaction.date}</span>
-                  <span>{transaction.description}</span>
-                  <span className="text-slate-400">
-                    {transaction.category}
-                  </span>
-                  <span
-                    className={
-                      transaction.amount > 0
-                        ? "text-right text-green-400"
-                        : "text-right text-red-400"
-                    }
-                  >
-                    {transaction.amount > 0 ? "+" : "-"}$
-                    {Math.abs(transaction.amount).toFixed(2)}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <RecentTransactions transactions={transactions} />
 
           <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
             <h2 className="text-xl font-semibold">Savings Goal</h2>
@@ -91,6 +66,7 @@ export default function Home() {
                 <span>$650 saved</span>
                 <span>$1,000 goal</span>
               </div>
+
               <div className="h-4 rounded-full bg-slate-800">
                 <div className="h-4 w-[65%] rounded-full bg-cyan-400" />
               </div>
