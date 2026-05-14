@@ -10,7 +10,6 @@ import SpendingCategoryCard from "@/components/SpendingCategoryCard";
 import SummaryCard from "@/components/SummaryCard";
 import {
   spendingCategories,
-  summaryCards,
   transactions as sampleTransactions,
 } from "@/data/sampleTransactions";
 
@@ -23,6 +22,44 @@ type NewTransaction = {
 
 export default function Home() {
   const [transactions, setTransactions] = useState(sampleTransactions);
+
+  const startingBalance = 2515.15;
+
+  const monthlyIncome = transactions
+    .filter((transaction) => transaction.amount > 0)
+    .reduce((total, transaction) => total + transaction.amount, 0);
+
+  const monthlyExpenses = Math.abs(
+    transactions
+      .filter((transaction) => transaction.amount < 0)
+      .reduce((total, transaction) => total + transaction.amount, 0)
+  );
+
+  const totalBalance = startingBalance + monthlyIncome - monthlyExpenses;
+
+  const savingsRate =
+    monthlyIncome > 0
+      ? Math.round(((monthlyIncome - monthlyExpenses) / monthlyIncome) * 100)
+      : 0;
+
+  const summaryCards = [
+    {
+      title: "Total Balance",
+      value: `$${totalBalance.toFixed(2)}`,
+    },
+    {
+      title: "Monthly Income",
+      value: `$${monthlyIncome.toFixed(2)}`,
+    },
+    {
+      title: "Monthly Expenses",
+      value: `$${monthlyExpenses.toFixed(2)}`,
+    },
+    {
+      title: "Savings Rate",
+      value: `${savingsRate}%`,
+    },
+  ];
 
   function handleAddTransaction(newTransaction: NewTransaction) {
     const formattedAmount =
