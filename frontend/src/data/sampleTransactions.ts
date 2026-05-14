@@ -39,3 +39,22 @@ export const spendingCategories = [
   { name: "Groceries", amount: 310 },
   { name: "Subscriptions", amount: 45 },
 ];
+
+export const summaryCards = [
+  {
+    title: "Total Balance",
+    value: "$2,840.50",
+  },
+  {
+    title: "Monthly Income",
+    value: "$1,680.00",
+  },
+  {
+    title: "Monthly Expenses",
+    value: "$965.25",
+  },
+  {
+    title: "Savings Rate",
+    value: "42%",
+  },
+];
