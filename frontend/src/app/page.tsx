@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddTransactionForm from "@/components/AddTransactionForm";
 import AiInsightCard from "@/components/AiInsightCard";
 import DashboardHeader from "@/components/DashboardHeader";
@@ -10,6 +10,15 @@ import SpendingCategoryCard from "@/components/SpendingCategoryCard";
 import SummaryCard from "@/components/SummaryCard";
 import { transactions as sampleTransactions } from "@/data/sampleTransactions";
 
+type Transaction = {
+  id: number;
+  date: string;
+  type: string;
+  category: string;
+  description: string;
+  amount: number;
+};
+
 type NewTransaction = {
   type: string;
   category: string;
@@ -18,7 +27,37 @@ type NewTransaction = {
 };
 
 export default function Home() {
-  const [transactions, setTransactions] = useState(sampleTransactions);
+  const [transactions, setTransactions] =
+    useState<Transaction[]>(sampleTransactions);
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const savedTransactions = localStorage.getItem("moneypilot-transactions");
+
+    if (savedTransactions) {
+      try {
+        const parsedTransactions = JSON.parse(savedTransactions);
+
+        if (Array.isArray(parsedTransactions)) {
+          setTransactions(parsedTransactions);
+        }
+      } catch {
+        console.log("Could not load saved transactions.");
+      }
+    }
+
+    setIsLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem(
+        "moneypilot-transactions",
+        JSON.stringify(transactions)
+      );
+    }
+  }, [transactions, isLoaded]);
 
   const startingBalance = 2515.15;
 
@@ -59,31 +98,31 @@ export default function Home() {
   ];
 
   const spendingCategories = Object.values(
-  transactions
-    .filter((transaction) => transaction.amount < 0)
-    .reduce<Record<string, { name: string; amount: number }>>(
-      (categories, transaction) => {
-        if (!categories[transaction.category]) {
-          categories[transaction.category] = {
-            name: transaction.category,
-            amount: 0,
-          };
-        }
+    transactions
+      .filter((transaction) => transaction.amount < 0)
+      .reduce<Record<string, { name: string; amount: number }>>(
+        (categories, transaction) => {
+          if (!categories[transaction.category]) {
+            categories[transaction.category] = {
+              name: transaction.category,
+              amount: 0,
+            };
+          }
 
-        categories[transaction.category].amount += Math.abs(
-          transaction.amount
-        );
+          categories[transaction.category].amount += Math.abs(
+            transaction.amount
+          );
 
-        return categories;
-      },
-      {}
-    )
-).sort((a, b) => b.amount - a.amount);
+          return categories;
+        },
+        {}
+      )
+  ).sort((a, b) => b.amount - a.amount);
 
-const topSpendingCategory = spendingCategories[0] ?? {
-  name: "No expenses yet",
-  amount: 0,
-};
+  const topSpendingCategory = spendingCategories[0] ?? {
+    name: "No expenses yet",
+    amount: 0,
+  };
 
   function handleAddTransaction(newTransaction: NewTransaction) {
     const formattedAmount =
@@ -123,10 +162,11 @@ const topSpendingCategory = spendingCategories[0] ?? {
 
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
           <SpendingCategoryCard categories={spendingCategories} />
+
           <AiInsightCard
-  topCategoryName={topSpendingCategory.name}
-  topCategoryAmount={topSpendingCategory.amount}
-/>
+            topCategoryName={topSpendingCategory.name}
+            topCategoryAmount={topSpendingCategory.amount}
+          />
         </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
