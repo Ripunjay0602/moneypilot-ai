@@ -10,7 +10,10 @@ type SpendingCategoryCardProps = {
 export default function SpendingCategoryCard({
   categories,
 }: SpendingCategoryCardProps) {
-  const maxAmount = Math.max(...categories.map((category) => category.amount), 1);
+  const maxAmount = Math.max(
+    ...categories.map((category) => category.amount),
+    1
+  );
 
   return (
     <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 lg:col-span-2">
